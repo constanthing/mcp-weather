@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Chat{% endblock %}
+
+{% block styles %}
+<link href="{% static 'css/chat.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block main_panel %}
+
+<div id="chat_id" {% if chat_id %}data-chat-id="{{ chat_id }}"{% endif %} style="display: none; user-select: none; pointer-events: none; z-index: -1000;"></div>
+
+<div id="chat-header">
+    <div id="chat-model-container">
+        <h4><i class="bi bi-robot"></i> <span id="model-name" data-model-name="{{ model.identifier }}">{{ model.name }}</span> <i class="bi bi-chevron-down"></i></h4>
+        <div id="model-options">
+            <!-- named m so i don't get confused with model variable -->
+            {% for m in available_models %}
+                <h4 class="model-option" data-model-name="{{ m.identifier }}"><a href="/chat/?model={{ m.identifier }}"><i class="bi bi-robot opacity-0"></i> <span>{{ m.name }}</span></a></h4>
+            {% endfor %}
+        </div>
+    </div>
+    <button id="chat-expand-btn">
+        <div id="expand-wrapper">
+            <i class="bi bi-arrows-angle-expand"></i>
+            <i class="bi bi-arrows-angle-contract"></i>
+        </div>
+    </button>
+</div>
+<div id="chats">
+    {% for chat_pair in chat_history %}
+    <div class="chat-pair">
+        {% for chat in chat_pair %}
+        {% if chat.role == "user" %}
+        <div class="user-message">
+            <p>{{ chat.text }}</p>
+        </div>
+        {% else %}
+        <div class="model-message-container">
+            <div class="model-message">
+                {{ chat.text | safe }}
+            </div>
+            <div class="model-footer">
+                <div class="model-options">
+                    <button><i class="bi bi-copy"></i></button>
+                    {% if chat.function_response_id %}
+                    <button><i class="bi bi-download"></i></button>
+                    {% endif %}
+                </div>
+                <small class="model-response-time">Model response time {{ chat.model_response_time }}s</small>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor%}
+    </div>
+    {% endfor %}
+</div>
+<div id="chat-input-container">
+    <div id="custom-prompts">
+        {% for prompt in custom_prompts %}
+        <button class="custom-prompt" data-prompt-id="{{ prompt.id }}">
+            {{ prompt.name }}
+        </button>
+        {% endfor %}
+    </div>
+    <form id="chat-input">
+        <textarea placeholder="Ask me anything..." id="prompt-input"></textarea>
+        <button id="chat-send-btn" type="submit" disabled>
+            <i class="bi bi-send"></i>
+        </button>
+        <button id="chat-stop-btn" class="hidden">
+            <div class="chat-stop-btn-wrapper">
+                <i class="bi bi-x-circle"></i>
+                <i class="bi bi-x-circle-fill hidden"></i>
+            </div>
+        </button>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/chat.js' %}"></script>
+{% endblock %}

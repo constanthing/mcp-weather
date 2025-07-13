@@ -1,0 +1,76 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP Weather | {% block title %}{% endblock %}</title>
+
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    {% block styles %}
+    {% endblock %}
+</head>
+<body>
+    {% csrf_token %}
+
+    <div id="container">
+        <div id="side-panel">
+            <div id="side-panel-header">
+                <div id="side-panel-header-info">
+                    <img src="{% static 'icons/logo.png' %}" alt="logo" class="logo">
+                    <h1 id="logo-text"><a href="/">MCP Weather</a></h1>
+                    <p class="txt-gray">Ask questions about the weather and get up to date information.</p>
+                </div>
+                <div id="side-panel-header-actions">
+                    <button id="new-chat-btn">
+                        <div class="chat-dots-wrapper">
+                            <i class="bi bi-chat-dots-fill"></i>
+                            <i class="bi bi-chat-dots"></i>
+                        </div>
+                        New Chat
+                    </button>
+                    <ul id="side-panel-navigation-links">
+                        <li><a href="#"><i class="bi bi-robot"></i> AI Agents</a></li>
+                        <li><a href="#"><i class="bi bi-graph-up"></i> Statistics</a></li>
+                        <li><a href="{% url 'get_custom_prompts' %}" class="{% if request.resolver_match.url_name == 'get_custom_prompts' %}active{% endif %}"><i class="bi bi-body-text"></i> Custom Prompts</a></li>
+                        <li><a href="#"><i class="bi bi-pin-map"></i> Locations</a></li>
+                    </ul>
+                    <div id="chats-history-header" class="txt-gray">
+                        <i class="bi bi-clock-history"></i>
+                        <h4>Chat History</h4>
+                    </div>
+                </div>
+            </div>
+            <div id="side-panel-content">
+                <div id="chats-history">
+
+
+                    {% if chats %}
+                    {% for chat in chats %}
+                    <div class="chat-history-item {% if chat.id == chat_id %}active-chat{% endif %}" data-chat-id="{{ chat.id }}">
+                        <a href="{% url 'chat' chat_id=chat.id %}">{{ chat.title }}</a>
+                        <div class="chat-history-options">
+                            <button class="chat-history-options-btn chat-history-delete-btn"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                </div>
+
+            </div>
+        </div>
+        <div id="main-panel">
+            {% block main_panel %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <script src="{% static 'js/base.js' %}"></script>
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>

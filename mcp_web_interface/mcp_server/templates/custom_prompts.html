@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Custom Prompts{% endblock %}
+
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/custom_prompts.css' %}"/>
+{% endblock %}
+
+{% block main_panel %}
+
+<div id="custom-prompts-input">
+    <div id="promptForm">
+        <input type="text" placeholder="Prompt Name" id="promptName" maxlength="255"/>
+        <textarea name="" id="promptInput" placeholder="Prompt"></textarea>
+        <div id="prompt-form-actions">
+            <div id="prompt-form-actions-left">
+                <button type="submit" id="promptFormAddBtn" disabled>Add Prompt</button>
+                <button type="submit" id="promptFormEditBtn" disabled>Edit Prompt</button>
+            </div>
+            <button id="promptFormClearBtn" disabled>Clear</button>
+        </div>
+    </div>
+</div>
+<div id="custom-prompts-output">
+    <table id="custom-prompts">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Prompt</th>
+                <!-- <th>Creation Date</th> -->
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if custom_prompts %}
+                {% for prompt in custom_prompts %}
+                <div class="custom-prompt-prompt-hidden" id="prompt-{{ prompt.id }}">{{ prompt.prompt }}</div>
+                <tr data-prompt-id="{{ prompt.id }}">
+                    <td class="custom-prompt-name">{{ prompt.name }}</td>
+                    <td class="custom-prompt-prompt">{{ prompt.prompt }}</td>
+                    <!-- <td class="custom-prompt-creation-date">{{ prompt.creation_date }}</td> -->
+                    <td>
+                        <button class="custom-prompt-delete-btn">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                        <button class="custom-prompt-edit-btn">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/custom_prompts.js' %}"></script>
+{% endblock %}
