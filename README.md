@@ -139,8 +139,7 @@ User Query → Web Interface → MCP Server → AI Model → Function Call → A
 1. **Clone and setup MCP server**:
    ```bash
    cd mcp_server
-   source env_keys.sh  # Add your API keys
-   uvicorn router:app --reload --port 8080
+   source startup.sh  # Add your API keys first
    ```
 
 2. **Setup web interface**:
