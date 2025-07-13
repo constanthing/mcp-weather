@@ -86,6 +86,10 @@ mcp_server/
 
 ### Installation Steps
 
+`
+pip install Django pandas tabulate requests 
+`
+
 1. **Clone the repository**
    ```bash
    git clone <repository-url>

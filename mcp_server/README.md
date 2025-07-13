@@ -31,3 +31,9 @@ source env_keys.sh
 
 * Prompts that fail (working on)
 - Create a column that shows the average temperature for each day in the next 5 days. 
+
+
+# Install
+`
+pip install fastapi uvicorn pandas openmeteo-requests pandas requests-cache retry-requests requests tabulate cerebras_cloud_sdk google-generativeai openai grpcio
+`
