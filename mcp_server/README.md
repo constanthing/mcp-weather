@@ -1,5 +1,7 @@
 ** Running program
+Make sure to have installed all the necessary dependencies first!
 `
+source setup.sh # make sure to add keys
 uvicorn router:app --reload --port 8080
 `
 

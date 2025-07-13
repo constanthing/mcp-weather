@@ -110,6 +110,7 @@ mcp_server/
 
 5. **Start the development server**
    ```bash
+   source setup.sh
    python manage.py runserver
    ```
 
