@@ -9,10 +9,10 @@ A comprehensive weather data analysis platform that combines AI-powered natural 
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Web Interface Layer                      │
+│             Web Interface Layer (Django/Sqlite)             │
 │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────┐  │
-│  │   Chat Interface│  │ Custom Prompts  │  │ Model Mgmt  │  │
-│  │   (Django)      │  │   Management    │  │   & History │  │
+│  │   Chat          │  │ Custom Prompts  │  │ Model Mgmt  │  │
+│  │   Interface     │  │   Management    │  │   & History │  │
 │  └─────────────────┘  └─────────────────┘  └─────────────┘  │
 └─────────────────────────────────────────────────────────────┘
                               │
