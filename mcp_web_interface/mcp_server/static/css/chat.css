@@ -323,7 +323,7 @@
     transition: background 0.2s;
 }
 .model-message tr th {
-    text-align: center;
+    text-align: left;
 }
 
 .model-message tr:nth-child(even) {

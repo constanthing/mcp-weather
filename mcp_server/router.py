@@ -74,7 +74,7 @@ def get_weather_data(request: Request):
         generation_config=GenerationConfig(
             temperature=0.0,
             top_p=0.0,
-            max_output_tokens=512
+            max_output_tokens=1024
         )
     )
 
@@ -82,6 +82,8 @@ def get_weather_data(request: Request):
 
     model_execution_time = time.time()
     response = chat_session.send_message(request.prompt)
+
+    print(response)
 
     if response.candidates[0].content.parts:
       function_call = response.candidates[0].content.parts[0].function_call
